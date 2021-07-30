@@ -1,0 +1,7 @@
+{
+  "name": "ionic_app_weight_tracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
