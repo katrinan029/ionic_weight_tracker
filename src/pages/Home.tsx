@@ -1,6 +1,6 @@
-import MessageListItem from '../components/MessageListItem';
-import { useState } from 'react';
-import { Message, getMessages } from '../data/messages';
+import MeasureListItem from '../components/MeasureListItem'
+import React, { useState } from 'react'
+import { Measure, getMeasures } from '../data/measures'
 import {
   IonContent,
   IonHeader,
@@ -10,51 +10,58 @@ import {
   IonRefresherContent,
   IonTitle,
   IonToolbar,
-  useIonViewWillEnter
-} from '@ionic/react';
-import './Home.css';
+  IonButtons,
+  IonButton,
+} from '@ionic/react'
+import './Home.css'
 
-const Home: React.FC = () => {
+interface HomeProps {
+  measures: Array<Measure>,
+  setMeasures: Function
+}
 
-  const [messages, setMessages] = useState<Message[]>([]);
-
-  useIonViewWillEnter(() => {
-    const msgs = getMessages();
-    setMessages(msgs);
-  });
+const Home: React.FC<HomeProps> = ({measures, setMeasures}) => {
 
   const refresh = (e: CustomEvent) => {
     setTimeout(() => {
-      e.detail.complete();
-    }, 3000);
-  };
+      e.detail.complete()
+    }, 3000)
+  }
 
   return (
-    <IonPage id="home-page">
+    <IonPage id='home-page'>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Inbox</IonTitle>
+          <IonTitle>Measurements (in lbs)</IonTitle>
+          <IonButtons slot='end'>
+            <IonButton routerLink={`/add`}>Add</IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonRefresher slot="fixed" onIonRefresh={refresh}>
+        <IonRefresher slot='fixed' onIonRefresh={refresh}>
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
 
-        <IonHeader collapse="condense">
+        <IonHeader collapse='condense'>
           <IonToolbar>
-            <IonTitle size="large">
-              Inbox
-            </IonTitle>
+            <IonTitle size='large'>Measurements</IonTitle>
           </IonToolbar>
         </IonHeader>
 
         <IonList>
-          {messages.map(m => <MessageListItem key={m.id} message={m} setMessages={setMessages} messages={messages} />)}
+          {measures.map((m) => (
+            <MeasureListItem
+              key={m.id}
+              measure={m}
+              setMeasures={setMeasures}
+              measures={measures}
+            />
+          ))}
         </IonList>
       </IonContent>
     </IonPage>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
