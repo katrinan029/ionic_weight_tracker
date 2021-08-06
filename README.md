@@ -1,4 +1,4 @@
-# Weight Tracker Mobile App Using Iconic
+# Weight Tracker Mobile App Using Ionic
 
 In this project, I created a simple application that tracks the weight over time, and will store the record. The application will have a list of weight measurements, and dates assigned to them.
 
